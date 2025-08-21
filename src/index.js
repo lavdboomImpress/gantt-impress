@@ -641,7 +641,7 @@ export default class Gantt {
                         });
                         label.textContent = labels[d];
                     }
-                    createSVG('rect', {
+                    const rect = createSVG('rect', {
                         x: Math.round(x),
                         y: this.config.header_height,
                         width:
@@ -655,6 +655,14 @@ export default class Gantt {
                         style: `fill: ${color};`,
                         append_to: this.layers.grid,
                     });
+
+                    const labelText = labels[d];
+                    if (labelText) {
+                        const date = date_utils.format(d, 'D MMMM', this.options.language);
+                        const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+                        title.textContent = date + ' - ' + labelText;
+                        rect.appendChild(title);
+                    }
                 }
             }
         }
