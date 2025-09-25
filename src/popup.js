@@ -50,9 +50,15 @@ export default class Popup {
         if (this.actions.innerHTML === '') this.actions.remove();
         else this.parent.appendChild(this.actions);
 
-        this.parent.style.left = x + 10 + 'px';
-        this.parent.style.top = y - 10 + 'px';
         this.parent.classList.remove('hide');
+
+        this.parent.style.zIndex = 1000;
+        this.parent.style.left = x + 10 + 'px';
+
+        let viewportBottomY = $('#tasks-gantt')[0].getBoundingClientRect().bottom - 200;
+
+        if (y + this.parent.offsetHeight >= viewportBottomY) this.parent.style.top = y - 10 - this.parent.offsetHeight + 'px';
+        else this.parent.style.top = y - 10 + 'px';
     }
 
     hide() {
