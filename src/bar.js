@@ -530,12 +530,28 @@ export default class Bar {
             this.gantt.config.unit,
         );
 
+        if (this.gantt.config.unit == 'month') {
+            new_start_date = date_utils.add(
+                new_start_date,
+                (x_in_units - parseInt(x_in_units)) * 30,
+                'day',
+            );
+        }
+
         const width_in_units = bar.getWidth() / this.gantt.config.column_width;
-        const new_end_date = date_utils.add(
+        let new_end_date = date_utils.add(
             new_start_date,
             width_in_units * this.gantt.config.step,
             this.gantt.config.unit,
         );
+
+        if (this.gantt.config.unit == 'month') {
+            new_end_date = date_utils.add(
+                new_end_date,
+                (width_in_units - parseInt(width_in_units)) * 30,
+                'day',
+            );
+        }
 
         return { new_start_date, new_end_date };
     }
