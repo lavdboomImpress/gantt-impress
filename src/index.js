@@ -1367,7 +1367,7 @@ export default class Gantt {
             bars.forEach((bar) => {
                 const $bar = bar.$bar;
                 if (!$bar.finaldx) return;
-                bar.date_changed();
+                // bar.date_changed();
                 bar.compute_progress();
                 bar.set_action_completed();
             });
