@@ -1312,6 +1312,7 @@ export default class Gantt {
             }
         });
 
+        let initFinaldx = 0;
         $.on(this.$svg, 'mousemove', (e) => {
             if (!action_in_progress()) return;
             const dx = (e.offsetX || e.layerX) - x_on_start;
@@ -1340,8 +1341,11 @@ export default class Gantt {
                 } else if (
                     is_dragging &&
                     !this.options.readonly &&
-                    !this.options.readonly_dates
+                    !this.options.readonly_dates &&
+                    $bar.finaldx !== 0 &&
+                    $bar.finaldx !== initFinaldx
                 ) {
+                    initFinaldx = $bar.finaldx;
                     bar.update_bar_position({ x: $bar.ox + $bar.finaldx });
                 }
             });
